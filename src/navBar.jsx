@@ -1,24 +1,12 @@
 import { Stack, Typography, Box, Divider } from "@mui/material";
-// import ListSubheader from "@mui/material/ListSubheader";
-// import List from "@mui/material/List";
-
-// import Collapse from "@mui/material/Collapse";
-// import DraftsIcon from "@mui/icons-material/Drafts";
-// import SendIcon from "@mui/icons-material/Send";
-
-// import StarBorder from "@mui/icons-material/StarBorder";
+import CircleIcon from "@mui/icons-material/Circle";
 import { styled, alpha } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import EditIcon from "@mui/icons-material/Edit";
-import ArchiveIcon from "@mui/icons-material/Archive";
-import FileCopyIcon from "@mui/icons-material/FileCopy";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { useState } from "react";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import PhoneIcon from "@mui/icons-material/Phone";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
+
 import SearchIcon from "@mui/icons-material/Search";
 const StyledMenu = styled((props) => (
   <Menu
@@ -53,38 +41,26 @@ const StyledMenu = styled((props) => (
           color: "inherit",
         }),
       },
-      //   "&:active": {
-      //     backgroundColor: alpha(
-      //       theme.palette.primary.main,
-      //       theme.palette.action.selectedOpacity
-      //     ),
-      //},
     },
     ...theme.applyStyles("dark", {
       color: theme.palette.grey[300],
     }),
   },
 }));
-export default function Nav() {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [menuitemOpen, setmenuitemOpen] = useState("0px");
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+export default function Nav({ setOpenSearch, setNavBarRight, setnavBarLeft }) {
+  const theme = useTheme();
+  const isMobile =
+    useMediaQuery(theme.breakpoints.only("xs")) ||
+    useMediaQuery(theme.breakpoints.only("sm")) ||
+    useMediaQuery(theme.breakpoints.only("md"));
+  function handleMenuClick() {
+    if (isMobile) {
+      setnavBarLeft("250px");
+    } else {
+      setNavBarRight("250px");
+    }
+  }
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-  const handleMenuitemOpen = () => {
-    setmenuitemOpen("16px");
-  };
-  const handleMenuitemClose = () => {
-    setmenuitemOpen("0px");
-  };
-  const handleOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
   return (
     <>
       <Stack
@@ -99,7 +75,6 @@ export default function Nav() {
           backgroundColor: "white",
           borderRadius: "20px",
           margin: "auto",
-          width: "98%",
           boxShadow: "2px 2px 54px 12px #f1f1f1",
         }}
       >
@@ -111,783 +86,790 @@ export default function Nav() {
           />
         </Box>
         {/**links */}
-        <Box
-          onMouseLeave={handleClose}
-          sx={{ display: { xs: "none", lg: "block" } }}
+        <Stack
+          direction={"row"}
+          spacing={3}
+          sx={{ alignItems: "center", justifyContent: "space-between" }}
         >
-          <Button
-            id="demo-customized-button"
-            aria-controls={open ? "demo-customized-menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? "true" : undefined}
-            disableElevation
-            onMouseEnter={handleClick}
-            onClick={handleClick}
+          <Box
             sx={{
-              color: "black",
-              textTransform: "none",
+              display: { xs: "none", lg: "block" },
               position: "relative",
-              fontSize: "16px",
-              fontWeight: "400",
-              backgroundColor: "transparent",
-              "&:hover": { backgroundColor: "transparent" },
 
-              "&::after": {
-                content: '""',
-                position: "absolute",
-                left: 0,
-                bottom: -4,
-                width: "100%",
-                height: "2px",
-                backgroundColor: "purple",
-                transform: "scaleX(0)",
-                transformOrigin: "left",
-                transition: "transform 0.3s ease",
+              "&:hover .dropdown-menu": {
+                opacity: 1,
+                visibility: "visible",
+                transform: "translateY(0)",
               },
 
-              "&:hover::after": {
+              "&:hover .arrow-icon": {
+                transform: "rotate(180deg)",
+              },
+              "&:hover button::after": {
                 transform: "scaleX(1)",
               },
             }}
-            endIcon={
-              <KeyboardArrowDownIcon
-                sx={{
+          >
+            <Button
+              sx={{
+                color: "black",
+                textTransform: "none",
+                position: "relative",
+                fontSize: "16px",
+                backgroundColor: "transparent",
+                "&:hover": { backgroundColor: "transparent" },
+
+                "&::after": {
+                  content: '""',
+                  position: "absolute",
+                  left: 0,
+                  bottom: -4,
+                  width: "100%",
+                  height: "4px",
+                  backgroundImage:
+                    "linear-gradient(45deg, #f7931e, #d63384, #6f42c1)",
+                  transform: "scaleX(0)",
+                  transformOrigin: "left",
                   transition: "transform 0.3s ease",
-                  transform: open ? "rotate(180deg)" : "rotate(0deg)",
-                }}
-              />
-            }
-          >
-            Home
-          </Button>
-          <StyledMenu
-            sx={{
-              marginTop: "30px",
-            }}
-            id="demo-customized-menu"
-            PaperProps={{
-              sx: {
-                padding: "20px 0px 20px 15px",
-              },
-            }}
-            slotProps={{
-              list: {
-                "aria-labelledby": "demo-customized-button",
-              },
-            }}
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              onMouseEnter: () => {},
-            }}
-          >
-            <MenuItem
-              onMouseEnter={handleMenuitemOpen}
-              onMouseLeave={handleMenuitemClose}
-              onClick={handleClose}
-              disableRipple
-              sx={{ display: "flex" }}
-            >
-              <Box
-                sx={{
-                  color: "purple",
-                  fontSize: "20px",
-                  fontWeight: "bold",
-                  width: menuitemOpen,
-                  overflow: "hidden",
-                }}
-              >
-                ..
-              </Box>
-              <Typography>Home Loyout 1</Typography>
-            </MenuItem>
-            <MenuItem
-              onClick={handleClose}
-              disableRipple
-              sx={{ display: "flex" }}
-            >
-              <Box
-                sx={{
-                  color: "purple",
-                  fontSize: "20px",
-                  fontWeight: "bold",
-                  width: "16px",
-                  overflow: "hidden",
-                }}
-              >
-                ..
-              </Box>
-              <Typography>Home Loyout 2</Typography>
-            </MenuItem>
-            <MenuItem
-              onClick={handleClose}
-              disableRipple
-              sx={{ display: "flex" }}
-            >
-              <Box
-                sx={{
-                  color: "purple",
-                  fontSize: "20px",
-                  fontWeight: "bold",
-                  width: "16px",
-                  overflow: "hidden",
-                }}
-              >
-                ..
-              </Box>
-              <Typography>Home Loyout 3</Typography>
-            </MenuItem>
-          </StyledMenu>
-        </Box>
-        <Box
-          onMouseLeave={handleClose}
-          sx={{ display: { xs: "none", lg: "block" } }}
-        >
-          <Button
-            id="demo-customized-button"
-            aria-controls={open ? "demo-customized-menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? "true" : undefined}
-            disableElevation
-            onMouseEnter={handleClick}
-            onClick={handleClick}
-            sx={{
-              color: "black",
-              textTransform: "none",
-              position: "relative",
-              fontSize: "16px",
-              fontWeight: "400",
-              backgroundColor: "transparent",
-              "&:hover": { backgroundColor: "transparent" },
+                },
 
-              "&::after": {
-                content: '""',
+                "&:hover::after": {
+                  transform: "scaleX(1)",
+                },
+              }}
+              endIcon={
+                <KeyboardArrowDownIcon
+                  className="arrow-icon"
+                  sx={{
+                    transition: "0.3s",
+                  }}
+                />
+              }
+            >
+              Home
+            </Button>
+
+            {/* Dropdown Menu */}
+            <Box
+              className="dropdown-menu"
+              sx={{
                 position: "absolute",
+                top: "100%",
                 left: 0,
-                bottom: -4,
-                width: "100%",
-                height: "2px",
-                backgroundColor: "purple",
-                transform: "scaleX(0)",
-                transformOrigin: "left",
-                transition: "transform 0.3s ease",
+                minWidth: "180px",
+                marginTop: "30px",
+                backgroundColor: "white",
+                borderRadius: "10px",
+                boxShadow: "0px 10px 30px rgba(0,0,0,0.1)",
+                padding: "10px 0",
+                opacity: 0,
+                visibility: "hidden",
+                transform: "translateY(10px)",
+                transition: "all 0.3s ease",
+                zIndex: 999,
+              }}
+            >
+              {[
+                "Home Layout 1",
+                "Home Layout 2",
+                "Home Layout 3",
+                "Home Layout 4",
+                "Home Layout 5",
+                "Home Layout 6",
+                "Home Layout 7",
+                "Hoo Woo Shop",
+              ].map((item, i) => (
+                <Stack
+                  direction={"row"}
+                  key={i}
+                  spacing={1}
+                  sx={{
+                    margin: "10px 10px",
+                    cursor: "pointer",
+                    "&:hover .inner-stack": {
+                      width: "16px",
+                    },
+                  }}
+                >
+                  <Stack
+                    className="inner-stack"
+                    direction={"row"}
+                    sx={{ alignItems: "end", width: "0px", overflow: "hidden" }}
+                    spacing={0.5}
+                  >
+                    <CircleIcon
+                      sx={{
+                        fontSize: "6px",
+                        color: "purple",
+                        transform: "translateY(-3.5px)",
+                      }}
+                    />
+                    <CircleIcon
+                      sx={{
+                        fontSize: "6px",
+                        color: "#6f42c1",
+                        transform: "translateY(-3.5px)",
+                      }}
+                    />
+                  </Stack>
+                  <Typography
+                    sx={{
+                      "&:hover": { color: "#ffae00" },
+                    }}
+                  >
+                    {item}
+                  </Typography>
+                </Stack>
+              ))}
+            </Box>
+          </Box>
+          <Box
+            sx={{
+              display: { xs: "none", lg: "block" },
+              position: "relative",
+
+              "&:hover .dropdown-menu": {
+                opacity: 1,
+                visibility: "visible",
+                transform: "translateY(0)",
               },
 
-              "&:hover::after": {
+              "&:hover .arrow-icon": {
+                transform: "rotate(180deg)",
+              },
+              "&:hover button::after": {
                 transform: "scaleX(1)",
               },
             }}
-            endIcon={
-              <KeyboardArrowDownIcon
-                sx={{
+          >
+            <Button
+              sx={{
+                color: "black",
+                textTransform: "none",
+                position: "relative",
+                fontSize: "16px",
+                backgroundColor: "transparent",
+                "&:hover": { backgroundColor: "transparent" },
+
+                "&::after": {
+                  content: '""',
+                  position: "absolute",
+                  left: 0,
+                  bottom: -4,
+                  width: "100%",
+                  height: "4px",
+                  backgroundImage:
+                    "linear-gradient(45deg, #f7931e, #d63384, #6f42c1)",
+                  transform: "scaleX(0)",
+                  transformOrigin: "left",
                   transition: "transform 0.3s ease",
-                  transform: open ? "rotate(180deg)" : "rotate(0deg)",
-                }}
-              />
-            }
-          >
-            Home
-          </Button>
-          <StyledMenu
-            sx={{
-              marginTop: "30px",
-            }}
-            id="demo-customized-menu"
-            PaperProps={{
-              sx: {
-                padding: "20px 0px 20px 15px",
-              },
-            }}
-            slotProps={{
-              list: {
-                "aria-labelledby": "demo-customized-button",
-              },
-            }}
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              onMouseEnter: () => {},
-            }}
-          >
-            <MenuItem
-              onMouseEnter={handleMenuitemOpen}
-              onMouseLeave={handleMenuitemClose}
-              onClick={handleClose}
-              disableRipple
-              sx={{ display: "flex" }}
-            >
-              <Box
-                sx={{
-                  color: "purple",
-                  fontSize: "20px",
-                  fontWeight: "bold",
-                  width: menuitemOpen,
-                  overflow: "hidden",
-                }}
-              >
-                ..
-              </Box>
-              <Typography>Home Loyout 1</Typography>
-            </MenuItem>
-            <MenuItem
-              onClick={handleClose}
-              disableRipple
-              sx={{ display: "flex" }}
-            >
-              <Box
-                sx={{
-                  color: "purple",
-                  fontSize: "20px",
-                  fontWeight: "bold",
-                  width: "16px",
-                  overflow: "hidden",
-                }}
-              >
-                ..
-              </Box>
-              <Typography>Home Loyout 2</Typography>
-            </MenuItem>
-            <MenuItem
-              onClick={handleClose}
-              disableRipple
-              sx={{ display: "flex" }}
-            >
-              <Box
-                sx={{
-                  color: "purple",
-                  fontSize: "20px",
-                  fontWeight: "bold",
-                  width: "16px",
-                  overflow: "hidden",
-                }}
-              >
-                ..
-              </Box>
-              <Typography>Home Loyout 3</Typography>
-            </MenuItem>
-          </StyledMenu>
-        </Box>
-        <Box
-          onMouseLeave={handleClose}
-          sx={{ display: { xs: "none", lg: "block" } }}
-        >
-          <Button
-            id="demo-customized-button"
-            aria-controls={open ? "demo-customized-menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? "true" : undefined}
-            disableElevation
-            onMouseEnter={handleClick}
-            onClick={handleClick}
-            sx={{
-              color: "black",
-              textTransform: "none",
-              position: "relative",
-              fontSize: "16px",
-              fontWeight: "400",
-              backgroundColor: "transparent",
-              "&:hover": { backgroundColor: "transparent" },
+                },
 
-              "&::after": {
-                content: '""',
+                "&:hover::after": {
+                  transform: "scaleX(1)",
+                },
+              }}
+              endIcon={
+                <KeyboardArrowDownIcon
+                  className="arrow-icon"
+                  sx={{
+                    transition: "0.3s",
+                  }}
+                />
+              }
+            >
+              Pages
+            </Button>
+
+            {/* Dropdown Menu */}
+            <Box
+              className="dropdown-menu"
+              sx={{
                 position: "absolute",
+                top: "100%",
                 left: 0,
-                bottom: -4,
-                width: "100%",
-                height: "2px",
-                backgroundColor: "purple",
-                transform: "scaleX(0)",
-                transformOrigin: "left",
-                transition: "transform 0.3s ease",
+                minWidth: "180px",
+                marginTop: "30px",
+                backgroundColor: "white",
+                borderRadius: "10px",
+                boxShadow: "0px 10px 30px rgba(0,0,0,0.1)",
+                padding: "10px 0",
+                opacity: 0,
+                visibility: "hidden",
+                transform: "translateY(10px)",
+                transition: "all 0.3s ease",
+                zIndex: 999,
+              }}
+            >
+              {[
+                "About Us",
+                "Our Team",
+                "Team Details",
+                "Our Gallery",
+                "Shop",
+                "Product Details",
+                "Testimonials",
+                "Coming Soon",
+                "Page 404",
+              ].map((item, i) => (
+                <Stack
+                  direction={"row"}
+                  key={i}
+                  spacing={1}
+                  sx={{
+                    margin: "10px 10px",
+                    cursor: "pointer",
+                    "&:hover .inner-stack": {
+                      width: "16px",
+                    },
+                  }}
+                >
+                  <Stack
+                    className="inner-stack"
+                    direction={"row"}
+                    sx={{ alignItems: "end", width: "0px", overflow: "hidden" }}
+                    spacing={0.5}
+                  >
+                    <CircleIcon
+                      sx={{
+                        fontSize: "6px",
+                        color: "purple",
+                        transform: "translateY(-3.5px)",
+                      }}
+                    />
+                    <CircleIcon
+                      sx={{
+                        fontSize: "6px",
+                        color: "#6f42c1",
+                        transform: "translateY(-3.5px)",
+                      }}
+                    />
+                  </Stack>
+                  <Typography
+                    sx={{
+                      "&:hover": { color: "#ffae00" },
+                    }}
+                  >
+                    {item}
+                  </Typography>
+                </Stack>
+              ))}
+            </Box>
+          </Box>
+          <Box
+            sx={{
+              display: { xs: "none", lg: "block" },
+              position: "relative",
+
+              "&:hover .dropdown-menu": {
+                opacity: 1,
+                visibility: "visible",
+                transform: "translateY(0)",
               },
 
-              "&:hover::after": {
+              "&:hover .arrow-icon": {
+                transform: "rotate(180deg)",
+              },
+              "&:hover button::after": {
                 transform: "scaleX(1)",
               },
             }}
-            endIcon={
-              <KeyboardArrowDownIcon
-                sx={{
+          >
+            <Button
+              sx={{
+                color: "black",
+                textTransform: "none",
+                position: "relative",
+                fontSize: "16px",
+                backgroundColor: "transparent",
+                "&:hover": { backgroundColor: "transparent" },
+
+                "&::after": {
+                  content: '""',
+                  position: "absolute",
+                  left: 0,
+                  bottom: -4,
+                  width: "100%",
+                  height: "4px",
+                  backgroundImage:
+                    "linear-gradient(45deg, #f7931e, #d63384, #6f42c1)",
+                  transform: "scaleX(0)",
+                  transformOrigin: "left",
                   transition: "transform 0.3s ease",
-                  transform: open ? "rotate(180deg)" : "rotate(0deg)",
-                }}
-              />
-            }
-          >
-            Home
-          </Button>
-          <StyledMenu
-            sx={{
-              marginTop: "30px",
-            }}
-            id="demo-customized-menu"
-            PaperProps={{
-              sx: {
-                padding: "20px 0px 20px 15px",
-              },
-            }}
-            slotProps={{
-              list: {
-                "aria-labelledby": "demo-customized-button",
-              },
-            }}
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              onMouseEnter: () => {},
-            }}
-          >
-            <MenuItem
-              onMouseEnter={handleMenuitemOpen}
-              onMouseLeave={handleMenuitemClose}
-              onClick={handleClose}
-              disableRipple
-              sx={{ display: "flex" }}
-            >
-              <Box
-                sx={{
-                  color: "purple",
-                  fontSize: "20px",
-                  fontWeight: "bold",
-                  width: menuitemOpen,
-                  overflow: "hidden",
-                }}
-              >
-                ..
-              </Box>
-              <Typography>Home Loyout 1</Typography>
-            </MenuItem>
-            <MenuItem
-              onClick={handleClose}
-              disableRipple
-              sx={{ display: "flex" }}
-            >
-              <Box
-                sx={{
-                  color: "purple",
-                  fontSize: "20px",
-                  fontWeight: "bold",
-                  width: "16px",
-                  overflow: "hidden",
-                }}
-              >
-                ..
-              </Box>
-              <Typography>Home Loyout 2</Typography>
-            </MenuItem>
-            <MenuItem
-              onClick={handleClose}
-              disableRipple
-              sx={{ display: "flex" }}
-            >
-              <Box
-                sx={{
-                  color: "purple",
-                  fontSize: "20px",
-                  fontWeight: "bold",
-                  width: "16px",
-                  overflow: "hidden",
-                }}
-              >
-                ..
-              </Box>
-              <Typography>Home Loyout 3</Typography>
-            </MenuItem>
-          </StyledMenu>
-        </Box>
-        <Box
-          onMouseLeave={handleClose}
-          sx={{ display: { xs: "none", lg: "block" } }}
-        >
-          <Button
-            id="demo-customized-button"
-            aria-controls={open ? "demo-customized-menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? "true" : undefined}
-            disableElevation
-            onMouseEnter={handleClick}
-            onClick={handleClick}
-            sx={{
-              color: "black",
-              textTransform: "none",
-              position: "relative",
-              fontSize: "16px",
-              fontWeight: "400",
-              backgroundColor: "transparent",
-              "&:hover": { backgroundColor: "transparent" },
+                },
 
-              "&::after": {
-                content: '""',
+                "&:hover::after": {
+                  transform: "scaleX(1)",
+                },
+              }}
+              endIcon={
+                <KeyboardArrowDownIcon
+                  className="arrow-icon"
+                  sx={{
+                    transition: "0.3s",
+                  }}
+                />
+              }
+            >
+              Services
+            </Button>
+
+            {/* Dropdown Menu */}
+            <Box
+              className="dropdown-menu"
+              sx={{
                 position: "absolute",
+                top: "100%",
                 left: 0,
-                bottom: -4,
-                width: "100%",
-                height: "2px",
-                backgroundColor: "purple",
-                transform: "scaleX(0)",
-                transformOrigin: "left",
-                transition: "transform 0.3s ease",
+                minWidth: "180px",
+                marginTop: "30px",
+                backgroundColor: "white",
+                borderRadius: "10px",
+                boxShadow: "0px 10px 30px rgba(0,0,0,0.1)",
+                padding: "10px 0",
+                opacity: 0,
+                visibility: "hidden",
+                transform: "translateY(10px)",
+                transition: "all 0.3s ease",
+                zIndex: 999,
+              }}
+            >
+              {[
+                "Our Services",
+                "PPC Services",
+                "SMM Services",
+                "Website Building",
+                "Pricing Table",
+              ].map((item, i) => (
+                <Stack
+                  direction={"row"}
+                  key={i}
+                  spacing={1}
+                  sx={{
+                    margin: "10px 10px",
+                    cursor: "pointer",
+                    "&:hover .inner-stack": {
+                      width: "16px",
+                    },
+                  }}
+                >
+                  <Stack
+                    className="inner-stack"
+                    direction={"row"}
+                    sx={{ alignItems: "end", width: "0px", overflow: "hidden" }}
+                    spacing={0.5}
+                  >
+                    <CircleIcon
+                      sx={{
+                        fontSize: "6px",
+                        color: "purple",
+                        transform: "translateY(-3.5px)",
+                      }}
+                    />
+                    <CircleIcon
+                      sx={{
+                        fontSize: "6px",
+                        color: "#6f42c1",
+                        transform: "translateY(-3.5px)",
+                      }}
+                    />
+                  </Stack>
+                  <Typography
+                    sx={{
+                      "&:hover": { color: "#ffae00" },
+                    }}
+                  >
+                    {item}
+                  </Typography>
+                </Stack>
+              ))}
+            </Box>
+          </Box>
+          <Box
+            sx={{
+              display: { xs: "none", lg: "block" },
+              position: "relative",
+
+              "&:hover .dropdown-menu": {
+                opacity: 1,
+                visibility: "visible",
+                transform: "translateY(0)",
               },
 
-              "&:hover::after": {
+              "&:hover .arrow-icon": {
+                transform: "rotate(180deg)",
+              },
+              "&:hover button::after": {
                 transform: "scaleX(1)",
               },
             }}
-            endIcon={
-              <KeyboardArrowDownIcon
-                sx={{
+          >
+            <Button
+              sx={{
+                color: "black",
+                textTransform: "none",
+                position: "relative",
+                fontSize: "16px",
+                backgroundColor: "transparent",
+                "&:hover": { backgroundColor: "transparent" },
+
+                "&::after": {
+                  content: '""',
+                  position: "absolute",
+                  left: 0,
+                  bottom: -4,
+                  width: "100%",
+                  height: "4px",
+                  backgroundImage:
+                    "linear-gradient(45deg, #f7931e, #d63384, #6f42c1)",
+                  transform: "scaleX(0)",
+                  transformOrigin: "left",
                   transition: "transform 0.3s ease",
-                  transform: open ? "rotate(180deg)" : "rotate(0deg)",
-                }}
-              />
-            }
-          >
-            Home
-          </Button>
-          <StyledMenu
-            sx={{
-              marginTop: "30px",
-            }}
-            id="demo-customized-menu"
-            PaperProps={{
-              sx: {
-                padding: "20px 0px 20px 15px",
-              },
-            }}
-            slotProps={{
-              list: {
-                "aria-labelledby": "demo-customized-button",
-              },
-            }}
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              onMouseEnter: () => {},
-            }}
-          >
-            <MenuItem
-              onMouseEnter={handleMenuitemOpen}
-              onMouseLeave={handleMenuitemClose}
-              onClick={handleClose}
-              disableRipple
-              sx={{ display: "flex" }}
-            >
-              <Box
-                sx={{
-                  color: "purple",
-                  fontSize: "20px",
-                  fontWeight: "bold",
-                  width: menuitemOpen,
-                  overflow: "hidden",
-                }}
-              >
-                ..
-              </Box>
-              <Typography>Home Loyout 1</Typography>
-            </MenuItem>
-            <MenuItem
-              onClick={handleClose}
-              disableRipple
-              sx={{ display: "flex" }}
-            >
-              <Box
-                sx={{
-                  color: "purple",
-                  fontSize: "20px",
-                  fontWeight: "bold",
-                  width: "16px",
-                  overflow: "hidden",
-                }}
-              >
-                ..
-              </Box>
-              <Typography>Home Loyout 2</Typography>
-            </MenuItem>
-            <MenuItem
-              onClick={handleClose}
-              disableRipple
-              sx={{ display: "flex" }}
-            >
-              <Box
-                sx={{
-                  color: "purple",
-                  fontSize: "20px",
-                  fontWeight: "bold",
-                  width: "16px",
-                  overflow: "hidden",
-                }}
-              >
-                ..
-              </Box>
-              <Typography>Home Loyout 3</Typography>
-            </MenuItem>
-          </StyledMenu>
-        </Box>
-        <Box
-          onMouseLeave={handleClose}
-          sx={{ display: { xs: "none", lg: "block" } }}
-        >
-          <Button
-            id="demo-customized-button"
-            aria-controls={open ? "demo-customized-menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? "true" : undefined}
-            disableElevation
-            onMouseEnter={handleClick}
-            onClick={handleClick}
-            sx={{
-              color: "black",
-              textTransform: "none",
-              position: "relative",
-              fontSize: "16px",
-              fontWeight: "400",
-              backgroundColor: "transparent",
-              "&:hover": { backgroundColor: "transparent" },
+                },
 
-              "&::after": {
-                content: '""',
+                "&:hover::after": {
+                  transform: "scaleX(1)",
+                },
+              }}
+              endIcon={
+                <KeyboardArrowDownIcon
+                  className="arrow-icon"
+                  sx={{
+                    transition: "0.3s",
+                  }}
+                />
+              }
+            >
+              Portofolio
+            </Button>
+
+            {/* Dropdown Menu */}
+            <Box
+              className="dropdown-menu"
+              sx={{
                 position: "absolute",
+                top: "100%",
                 left: 0,
-                bottom: -4,
-                width: "100%",
-                height: "2px",
-                backgroundColor: "purple",
-                transform: "scaleX(0)",
-                transformOrigin: "left",
-                transition: "transform 0.3s ease",
+                minWidth: "180px",
+                marginTop: "30px",
+                backgroundColor: "white",
+                borderRadius: "10px",
+                boxShadow: "0px 10px 30px rgba(0,0,0,0.1)",
+                padding: "10px 0",
+                opacity: 0,
+                visibility: "hidden",
+                transform: "translateY(10px)",
+                transition: "all 0.3s ease",
+                zIndex: 999,
+              }}
+            >
+              {[
+                "Portofolio Grid",
+                "Portofolio Masonary",
+                "Portofolio Carsoul",
+                "Portofolio Details",
+              ].map((item, i) => (
+                <Stack
+                  direction={"row"}
+                  key={i}
+                  spacing={1}
+                  sx={{
+                    margin: "10px 10px",
+                    cursor: "pointer",
+                    "&:hover .inner-stack": {
+                      width: "16px",
+                    },
+                  }}
+                >
+                  <Stack
+                    className="inner-stack"
+                    direction={"row"}
+                    sx={{ alignItems: "end", width: "0px", overflow: "hidden" }}
+                    spacing={0.5}
+                  >
+                    <CircleIcon
+                      sx={{
+                        fontSize: "6px",
+                        color: "purple",
+                        transform: "translateY(-3.5px)",
+                      }}
+                    />
+                    <CircleIcon
+                      sx={{
+                        fontSize: "6px",
+                        color: "#6f42c1",
+                        transform: "translateY(-3.5px)",
+                      }}
+                    />
+                  </Stack>
+                  <Typography
+                    sx={{
+                      "&:hover": { color: "#ffae00" },
+                    }}
+                  >
+                    {item}
+                  </Typography>
+                </Stack>
+              ))}
+            </Box>
+          </Box>
+          <Box
+            sx={{
+              display: { xs: "none", lg: "block" },
+              position: "relative",
+
+              "&:hover .dropdown-menu": {
+                opacity: 1,
+                visibility: "visible",
+                transform: "translateY(0)",
               },
 
-              "&:hover::after": {
+              "&:hover .arrow-icon": {
+                transform: "rotate(180deg)",
+              },
+              "&:hover button::after": {
                 transform: "scaleX(1)",
               },
             }}
-            endIcon={
-              <KeyboardArrowDownIcon
-                sx={{
+          >
+            <Button
+              sx={{
+                color: "black",
+                textTransform: "none",
+                position: "relative",
+                fontSize: "16px",
+                backgroundColor: "transparent",
+                "&:hover": { backgroundColor: "transparent" },
+
+                "&::after": {
+                  content: '""',
+                  position: "absolute",
+                  left: 0,
+                  bottom: -4,
+                  width: "100%",
+                  height: "4px",
+                  backgroundImage:
+                    "linear-gradient(45deg, #f7931e, #d63384, #6f42c1)",
+                  transform: "scaleX(0)",
+                  transformOrigin: "left",
                   transition: "transform 0.3s ease",
-                  transform: open ? "rotate(180deg)" : "rotate(0deg)",
-                }}
-              />
-            }
-          >
-            Home
-          </Button>
-          <StyledMenu
-            sx={{
-              marginTop: "30px",
-            }}
-            id="demo-customized-menu"
-            PaperProps={{
-              sx: {
-                padding: "20px 0px 20px 15px",
-              },
-            }}
-            slotProps={{
-              list: {
-                "aria-labelledby": "demo-customized-button",
-              },
-            }}
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              onMouseEnter: () => {},
-            }}
-          >
-            <MenuItem
-              onMouseEnter={handleMenuitemOpen}
-              onMouseLeave={handleMenuitemClose}
-              onClick={handleClose}
-              disableRipple
-              sx={{ display: "flex" }}
-            >
-              <Box
-                sx={{
-                  color: "purple",
-                  fontSize: "20px",
-                  fontWeight: "bold",
-                  width: menuitemOpen,
-                  overflow: "hidden",
-                }}
-              >
-                ..
-              </Box>
-              <Typography>Home Loyout 1</Typography>
-            </MenuItem>
-            <MenuItem
-              onClick={handleClose}
-              disableRipple
-              sx={{ display: "flex" }}
-            >
-              <Box
-                sx={{
-                  color: "purple",
-                  fontSize: "20px",
-                  fontWeight: "bold",
-                  width: "16px",
-                  overflow: "hidden",
-                }}
-              >
-                ..
-              </Box>
-              <Typography>Home Loyout 2</Typography>
-            </MenuItem>
-            <MenuItem
-              onClick={handleClose}
-              disableRipple
-              sx={{ display: "flex" }}
-            >
-              <Box
-                sx={{
-                  color: "purple",
-                  fontSize: "20px",
-                  fontWeight: "bold",
-                  width: "16px",
-                  overflow: "hidden",
-                }}
-              >
-                ..
-              </Box>
-              <Typography>Home Loyout 3</Typography>
-            </MenuItem>
-          </StyledMenu>
-        </Box>
-        <Box
-          onMouseLeave={handleClose}
-          sx={{ display: { xs: "none", lg: "block" } }}
-        >
-          <Button
-            id="demo-customized-button"
-            aria-controls={open ? "demo-customized-menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? "true" : undefined}
-            disableElevation
-            onMouseEnter={handleClick}
-            onClick={handleClick}
-            sx={{
-              color: "black",
-              textTransform: "none",
-              position: "relative",
-              fontSize: "16px",
-              fontWeight: "400",
-              backgroundColor: "transparent",
-              "&:hover": { backgroundColor: "transparent" },
+                },
 
-              "&::after": {
-                content: '""',
+                "&:hover::after": {
+                  transform: "scaleX(1)",
+                },
+              }}
+              endIcon={
+                <KeyboardArrowDownIcon
+                  className="arrow-icon"
+                  sx={{
+                    transition: "0.3s",
+                  }}
+                />
+              }
+            >
+              Blog
+            </Button>
+
+            {/* Dropdown Menu */}
+            <Box
+              className="dropdown-menu"
+              sx={{
                 position: "absolute",
+                top: "100%",
                 left: 0,
-                bottom: -4,
-                width: "100%",
-                height: "2px",
-                backgroundColor: "purple",
-                transform: "scaleX(0)",
-                transformOrigin: "left",
-                transition: "transform 0.3s ease",
+                minWidth: "180px",
+                marginTop: "30px",
+                backgroundColor: "white",
+                borderRadius: "10px",
+                boxShadow: "0px 10px 30px rgba(0,0,0,0.1)",
+                padding: "10px 0",
+                opacity: 0,
+                visibility: "hidden",
+                transform: "translateY(10px)",
+                transition: "all 0.3s ease",
+                zIndex: 999,
+              }}
+            >
+              {["Blog Default", "Blog Grid", "Blog List", "Blog Details"].map(
+                (item, i) => (
+                  <Stack
+                    direction={"row"}
+                    key={i}
+                    spacing={1}
+                    sx={{
+                      margin: "10px 10px",
+                      cursor: "pointer",
+                      "&:hover .inner-stack": {
+                        width: "16px",
+                      },
+                    }}
+                  >
+                    <Stack
+                      className="inner-stack"
+                      direction={"row"}
+                      sx={{
+                        alignItems: "end",
+                        width: "0px",
+                        overflow: "hidden",
+                      }}
+                      spacing={0.5}
+                    >
+                      <CircleIcon
+                        sx={{
+                          fontSize: "6px",
+                          color: "purple",
+                          transform: "translateY(-3.5px)",
+                        }}
+                      />
+                      <CircleIcon
+                        sx={{
+                          fontSize: "6px",
+                          color: "#6f42c1",
+                          transform: "translateY(-3.5px)",
+                        }}
+                      />
+                    </Stack>
+                    <Typography
+                      sx={{
+                        "&:hover": { color: "#ffae00" },
+                      }}
+                    >
+                      {item}
+                    </Typography>
+                  </Stack>
+                )
+              )}
+            </Box>
+          </Box>
+          <Box
+            sx={{
+              display: { xs: "none", lg: "block" },
+              position: "relative",
+
+              "&:hover .dropdown-menu": {
+                opacity: 1,
+                visibility: "visible",
+                transform: "translateY(0)",
               },
 
-              "&:hover::after": {
+              "&:hover .arrow-icon": {
+                transform: "rotate(180deg)",
+              },
+              "&:hover button::after": {
                 transform: "scaleX(1)",
               },
             }}
-            endIcon={
-              <KeyboardArrowDownIcon
-                sx={{
+          >
+            <Button
+              sx={{
+                color: "black",
+                textTransform: "none",
+                position: "relative",
+                fontSize: "16px",
+                backgroundColor: "transparent",
+                "&:hover": { backgroundColor: "transparent" },
+
+                "&::after": {
+                  content: '""',
+                  position: "absolute",
+                  left: 0,
+                  bottom: -4,
+                  width: "100%",
+                  height: "4px",
+                  backgroundImage:
+                    "linear-gradient(45deg, #f7931e, #d63384, #6f42c1)",
+                  transform: "scaleX(0)",
+                  transformOrigin: "left",
                   transition: "transform 0.3s ease",
-                  transform: open ? "rotate(180deg)" : "rotate(0deg)",
-                }}
-              />
-            }
-          >
-            Home
-          </Button>
-          <StyledMenu
-            sx={{
-              marginTop: "30px",
-            }}
-            id="demo-customized-menu"
-            PaperProps={{
-              sx: {
-                padding: "20px 0px 20px 15px",
-              },
-            }}
-            slotProps={{
-              list: {
-                "aria-labelledby": "demo-customized-button",
-              },
-            }}
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              onMouseEnter: () => {},
-            }}
-          >
-            <MenuItem
-              onMouseEnter={handleMenuitemOpen}
-              onMouseLeave={handleMenuitemClose}
-              onClick={handleClose}
-              disableRipple
-              sx={{ display: "flex" }}
+                },
+
+                "&:hover::after": {
+                  transform: "scaleX(1)",
+                },
+              }}
+              endIcon={
+                <KeyboardArrowDownIcon
+                  className="arrow-icon"
+                  sx={{
+                    transition: "0.3s",
+                  }}
+                />
+              }
             >
-              <Box
-                sx={{
-                  color: "purple",
-                  fontSize: "20px",
-                  fontWeight: "bold",
-                  width: menuitemOpen,
-                  overflow: "hidden",
-                }}
-              >
-                ..
-              </Box>
-              <Typography>Home Loyout 1</Typography>
-            </MenuItem>
-            <MenuItem
-              onClick={handleClose}
-              disableRipple
-              sx={{ display: "flex" }}
+              Contact
+            </Button>
+
+            {/* Dropdown Menu */}
+            <Box
+              className="dropdown-menu"
+              sx={{
+                position: "absolute",
+                top: "100%",
+                left: 0,
+                minWidth: "180px",
+                marginTop: "30px",
+                backgroundColor: "white",
+                borderRadius: "10px",
+                boxShadow: "0px 10px 30px rgba(0,0,0,0.1)",
+                padding: "10px 0",
+                opacity: 0,
+                visibility: "hidden",
+                transform: "translateY(10px)",
+                transition: "all 0.3s ease",
+                zIndex: 999,
+              }}
             >
-              <Box
-                sx={{
-                  color: "purple",
-                  fontSize: "20px",
-                  fontWeight: "bold",
-                  width: "16px",
-                  overflow: "hidden",
-                }}
-              >
-                ..
-              </Box>
-              <Typography>Home Loyout 2</Typography>
-            </MenuItem>
-            <MenuItem
-              onClick={handleClose}
-              disableRipple
-              sx={{ display: "flex" }}
-            >
-              <Box
-                sx={{
-                  color: "purple",
-                  fontSize: "20px",
-                  fontWeight: "bold",
-                  width: "16px",
-                  overflow: "hidden",
-                }}
-              >
-                ..
-              </Box>
-              <Typography>Home Loyout 3</Typography>
-            </MenuItem>
-          </StyledMenu>
-        </Box>
+              {["Contact Us", "Help &  Faqs"].map((item, i) => (
+                <Stack
+                  direction={"row"}
+                  key={i}
+                  spacing={1}
+                  sx={{
+                    margin: "10px 10px",
+                    cursor: "pointer",
+                    "&:hover .inner-stack": {
+                      width: "16px",
+                    },
+                  }}
+                >
+                  <Stack
+                    className="inner-stack"
+                    direction={"row"}
+                    sx={{ alignItems: "end", width: "0px", overflow: "hidden" }}
+                    spacing={0.5}
+                  >
+                    <CircleIcon
+                      sx={{
+                        fontSize: "6px",
+                        color: "purple",
+                        transform: "translateY(-3.5px)",
+                      }}
+                    />
+                    <CircleIcon
+                      sx={{
+                        fontSize: "6px",
+                        color: "#6f42c1",
+                        transform: "translateY(-3.5px)",
+                      }}
+                    />
+                  </Stack>
+                  <Typography
+                    sx={{
+                      "&:hover": { color: "#ffae00" },
+                    }}
+                  >
+                    {item}
+                  </Typography>
+                </Stack>
+              ))}
+            </Box>
+          </Box>
+        </Stack>
+
         {/**phone phooto */}
         <Box sx={{ display: { xs: "none", lg: "block" } }}>
-          <PhoneIcon />
+          <img src="/download.svg" />
         </Box>
         <Divider
           orientation="vertical"
@@ -912,12 +894,22 @@ export default function Nav() {
             height: "40px",
           }}
         >
-          <SearchIcon sx={{ color: "white" }} />
+          <SearchIcon
+            sx={{ color: "white" }}
+            onClick={(e) => {
+              e.stopPropagation(); // ← منع وصول الحدث للـ document
+              setOpenSearch(true);
+            }}
+          />
         </Stack>
-        <Stack direction={"row"} spacing={2} sx={{ alignItems: "center" }}>
+        <Stack direction={"row"} spacing={4} sx={{ alignItems: "center" }}>
           {/**Free Seo Analysis */}
           <Button
             sx={{
+              padding: "15px 30px",
+              borderRadius: "20px",
+              fontSize: "13px",
+              fontWeight: "700",
               display: { xs: "none", md: "block", lg: "none" },
               color: "white",
               background: "#000",
@@ -929,7 +921,7 @@ export default function Nav() {
             Free Seo Analysis
           </Button>
           {/**menu */}
-          <div className="menu">
+          <div className="menu" onClick={handleMenuClick}>
             <div
               style={{
                 width: "20px",

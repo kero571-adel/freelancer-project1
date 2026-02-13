@@ -22,6 +22,7 @@ body {
   direction: rtl;
   cursor: pointer;
   width: 20px;
+  
 }
 .menu:hover div:first-of-type {
   width: 10px !important;
