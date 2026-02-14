@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Box,
   TextField,
@@ -6,7 +7,6 @@ import {
   ClickAwayListener,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-
 export default function Search({ openSearch, setOpenSearch }) {
   console.log("openSearch: ", openSearch);
   return (

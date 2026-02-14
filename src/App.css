@@ -4,6 +4,10 @@ body {
   padding: 0 !important;
   margin: 0 !important;
 }
+::selection {
+  background-color: #ffae00; /* لون الخلفية */
+  color: white; /* لون النص */
+}
 .underLineBtn {
   width: 100%;
   height: 4px;
@@ -24,7 +28,6 @@ body {
   direction: rtl;
   cursor: pointer;
   width: 20px;
-  
 }
 .menu:hover div:first-of-type {
   width: 10px !important;
@@ -57,24 +60,24 @@ body {
 .closeSideBarRight:hover div:last-of-type {
   transform: rotate(0deg);
 }
-.MenuLinks a{
+.MenuLinks a {
   text-decoration: none;
   color: black;
 }
-.MenuLinks a:hover{
+.MenuLinks a:hover {
   color: #ffae00;
 }
-.MenuLinks .MuiBox-root{
+.MenuLinks .MuiBox-root {
   margin-bottom: 10px;
   margin-left: 15px;
 }
-.MenuLinks .MuiPaper-root:hover p:first-of-type{
+.MenuLinks .MuiPaper-root:hover p:first-of-type {
   color: #ffae00 !important;
 }
-.imagePhoneNAv:hover{
+.imagePhoneNAv:hover {
   transform: scale(1.1) rotate(10deg);
 }
-
+/*////////////////////////////////////////////////////////////////////////////////////////////////*/
 .home {
   min-height: 100vh;
   display: flex;
@@ -88,6 +91,7 @@ body {
 /* LEFT */
 .home-left {
   width: 45%;
+  margin-left: 15px;
   animation: fadeLeft 1s ease forwards;
   margin-right: 5%;
 }
@@ -100,17 +104,17 @@ body {
 }
 
 .home-left h1 {
-  font-size: 50px;
+  font-size: 35px;
   font-weight: 700;
   color: #1f2b5b;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .home-left p {
   font-size: 18px;
   color: #555;
-  line-height: 1.8;
-  margin-bottom: 30px;
+  line-height: 1.4;
+  margin-bottom: 20px;
 }
 
 .main-btn {
@@ -173,8 +177,8 @@ body {
 }
 
 .home .hero img {
-  width: 150px;
-  height: 150px;
+  width: 120px;
+  height: 120px;
 }
 
 /* Floating Images */
@@ -186,15 +190,15 @@ body {
 
 /* Positions */
 .google {
-  top: 8%;
-  right: 5%;
+  top: 11%;
+  right: 2%;
   animation-delay: 0s;
   z-index: 99;
 }
 
 .chat {
-  top: 5%;
-  left: 15%;
+  top: 11%;
+  left: 20%;
   animation-delay: 1s;
   z-index: 99;
 }
@@ -426,35 +430,32 @@ body {
 a.button {
   width: fit-content;
   display: flex;
-  padding: 5px 5px;
+  padding: 10px 30px;
   cursor: pointer;
   gap: 0.4rem;
   font-weight: bold;
   border-radius: 40px;
   text-shadow: 2px 2px 3px rgb(136 0 136 / 50%);
   background: linear-gradient(
-    15deg,
-    #880088,
-    #aa2068,
-    #cc3f47,
-    #de6f3d,
-    #f09f33,
-    #de6f3d,
-    #cc3f47,
-    #aa2068,
-    #880088
-  )
+      15deg,
+      #d26367,
+      #5e4db0,
+      #2e2464,
+      #160d48,
+      #160d48
+    )
     no-repeat;
   background-size: 300%;
   color: #fff;
   border: none;
   background-position: left center;
-  box-shadow: 0 30px 10px -20px rgba(0, 0, 0, 0.2);
   transition: background 0.3s ease;
   text-decoration: none;
 }
 
 a.button:hover {
+  background: linear-gradient(15deg, #2e2464, #160d48, #d26367, #5e4db0)
+    no-repeat;
   background-size: 320%;
   background-position: right center;
 }
@@ -536,8 +537,9 @@ a.button svg {
     width: 100%;
     order: 2;
     margin-top: 25px;
+    margin-left: 15px;
     position: relative;
-    text-align: left; /* make text left-aligned */
+    text-align: left;
   }
 
   .home-left h1,
@@ -546,12 +548,13 @@ a.button svg {
   }
 
   .home-left h1 {
-    font-size: 30px;
+    font-size: 20px;
     line-height: 1.3;
   }
 
   .home-left p {
     font-size: 15px;
+    font-weight: 400;
   }
 
   .buttons,
@@ -687,7 +690,8 @@ a.button svg {
     width: 100%;
     order: 2;
     margin-top: 15px;
-    margin-left: 5%;
+    margin-left: 12%;
+    margin-bottom: 20px;
     position: relative;
     text-align: left;
   }
@@ -786,7 +790,6 @@ a.button svg {
 
 /* <= 767px */
 @media (max-width: 767px) {
-
   .hero-right {
     width: 100%;
     height: 350px;
@@ -799,7 +802,7 @@ a.button svg {
     height: 500px !important;
     object-fit: contain;
   }
-  .home .hero-right img{
+  .home .hero-right img {
     width: 100px;
     height: 100px;
   }
@@ -808,30 +811,49 @@ a.button svg {
     width: 30px;
   }
 
-  .google { top: 0%; right: 20%; }
-  .chat   { top: 0%; left: 30%; }
-  .target { top: 45%; left: 10%; }
-  .chart  { bottom: -20%; right: 20%; z-index: 99; }
-  .db     { bottom: -10%; left: 15%; z-index: 99; }
-  .coin   { bottom: 20%; right: 20%; }
+  .google {
+    top: 0%;
+    right: 20%;
+  }
+  .chat {
+    top: 0%;
+    left: 30%;
+  }
+  .target {
+    top: 45%;
+    left: 10%;
+  }
+  .chart {
+    bottom: -20%;
+    right: 20%;
+    z-index: 99;
+  }
+  .db {
+    bottom: -10%;
+    left: 15%;
+    z-index: 99;
+  }
+  .coin {
+    bottom: 20%;
+    right: 20%;
+  }
 
   /* Optional: adjust floating dots inside hero if needed */
-  .dot3, .dot4 {
+  .dot3,
+  .dot4 {
     width: 4px;
     height: 4px;
   }
-  .home-left{
+  .home-left {
     margin-top: 50px;
   }
 }
 
 /* <= 640px */
 @media (max-width: 640px) {
-
   .hero-right {
     height: 300px;
   }
-
   .main-image {
     width: 700px !important;
     height: 500px !important;
@@ -841,17 +863,34 @@ a.button svg {
     width: 25px;
   }
 
-  .google { top: -15%; right: 15%; }
-  .chat   { top: -15%; left: 10%; }
-  .target { top: 40%; left: 0%; }
-  .chart  { bottom: -30%; right: 15%; }
-  .db     { bottom: -30%; left: 3%; }
-  .coin   { bottom: 18%; right: 10%; }
+  .google {
+    top: -15%;
+    right: 15%;
+  }
+  .chat {
+    top: -15%;
+    left: 10%;
+  }
+  .target {
+    top: 40%;
+    left: 0%;
+  }
+  .chart {
+    bottom: -30%;
+    right: 15%;
+  }
+  .db {
+    bottom: -30%;
+    left: 3%;
+  }
+  .coin {
+    bottom: 18%;
+    right: 10%;
+  }
 }
 
 /* <= 400px */
 @media (max-width: 400px) {
-
   .hero-right {
     height: 250px;
   }
@@ -865,48 +904,50 @@ a.button svg {
     width: 20px;
   }
 
-  .google { top: 0%; right: 5%; }
-  .chat   { top: 4%; left: 2%; }
-  .target { top: 35%; left: 0%; }
-  .chart  { bottom: -6%; right: 5%; }
-  .db     { bottom: -6%; left: 2%; }
-  .coin   { bottom: 15%; right: 1%; }
+  .google {
+    top: 0%;
+    right: 5%;
+  }
+  .chat {
+    top: 4%;
+    left: 2%;
+  }
+  .target {
+    top: 35%;
+    left: 0%;
+  }
+  .chart {
+    bottom: -28%;
+    right: 5%;
+  }
+  .db {
+    bottom: -6%;
+    left: 2%;
+  }
+  .coin {
+    bottom: 15%;
+    right: 1%;
+  }
 }
-
 
 /*Section 2*/
 .how {
   position: relative;
-  padding: 120px 20px;
+  padding: 50px 20px;
   overflow: hidden;
   background: #fff;
 }
-
 .left-shape {
   position: absolute;
   left: 0;
-  top: 0;
-  width: 10%;
+  top: 20%;
+  width: 260px;
   height: 100%;
-  z-index: 0;
   pointer-events: none;
-
-  background:
-    radial-gradient(circle at left center, #ff9f43 0%, #ff9f43 38%, transparent 40%),
-    radial-gradient(circle at left center, rgba(128, 90, 255, 0.05) 0%, rgba(128, 90, 255, 0.05) 55%, transparent 57%),
-    radial-gradient(#cfcfcf 1px, transparent 1px);
-
-  background-size:
-    100% 100%,
-    100% 100%,
-    16px 16px;
-
-  background-position:
-    left center,
-    left center,
-    0 0;
+  z-index: 1;
+  background-image: url("/Salepush – SEO & Digital Marketing Theme_files/h1_02.png");
+  background-repeat: no-repeat;
 }
-
 
 .content {
   position: relative;
@@ -939,6 +980,8 @@ a.button svg {
   width: 100%;
   overflow: hidden;
   text-align: center;
+  position: relative;
+  margin-top: 50px;
 }
 
 .slider-window {
@@ -948,25 +991,107 @@ a.button svg {
 
 .slider-track {
   display: flex;
-  width: calc(100% * 5 / 3);
-  transition: transform 0.8s cubic-bezier(.4,0,.2,1);
+  width: 102%;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/****************************************************/
 .card {
-  width: calc(100% / 5);
-  max-width: 300px;
   flex-shrink: 0;
-  margin: 0 15px;
-  background: #fff;
-  border-radius: 18px;
-  padding: 20px;
-  box-shadow: 0 10px 25px rgba(0,0,0,.08);
+  width: calc(100% / 3 - 20px); /* 3 cards on desktop with spacing */
+  margin: 0 10px;
+  padding: 30px 20px;
+  background: transparent; /* Transparent background */
+  /* border: 2px solid rgba(255, 255, 255, 0.1); */
+  /* border-radius: 15px; */
+  /* box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); */
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
+/* Card hover effect */
+.card:hover {
+  transform: translateY(-10px);
+  /* box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+  border-color: rgba(255, 255, 255, 0.3); */
+}
+
+/* Card content styling */
 .card img {
   width: 100px;
+  height: 100px;
+  margin: 0 auto 20px;
+  display: block;
+  object-fit: contain;
+}
+
+.card h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1d1d3f;
   margin-bottom: 15px;
-  margin: auto;
+  line-height: 1.3;
+}
+
+.card p {
+  font-size: 15px;
+  color: #666;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Vertical divider between cards */
+.card::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 100%;
+  background: black;
+}
+
+/* Remove divider from last card */
+.card:last-child::after {
+  display: none;
+}
+
+.slider-controls {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 30px 0;
+}
+
+.prev-btn,
+.next-btn {
+  width: 50px;
+  height: 50px;
+  border: none;
+  background: #f08c17;
+  color: white;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(240, 140, 23, 0.3);
+}
+
+.prev-btn:hover,
+.next-btn:hover {
+  background: #e07c07;
+  transform: scale(1.1);
+}
+
+.prev-btn:disabled,
+.next-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
 }
 
 .lines {
@@ -985,10 +1110,14 @@ a.button svg {
   transition: 0.3s;
 }
 
-.lines span.active {
-  background: black;
+.lines span:hover {
+  width: 40px;
 }
 
+.lines span.active {
+  background: rgb(17, 16, 16);
+  width: 40px;
+}
 
 @keyframes fade {
   from {
@@ -1000,6 +1129,7 @@ a.button svg {
     transform: translateY(0);
   }
 }
+
 .center-line {
   width: 30%;
   height: 4px;
@@ -1008,20 +1138,77 @@ a.button svg {
   border-radius: 3px;
 }
 
-/* Responsive */
-/* ===== HOW SECTION — FIX FOR <=1000px ONLY ===== */
-@media (max-width: 1000px) {
+/* Responsive - Tablet (2 cards) */
+@media (max-width: 1023px) and (min-width: 768px) {
+  .card {
+    width: calc(100% / 2 - 20px); /* 2 cards on tablet */
+  }
 
-  /* ❌ Remove left orange shape */
-  .left-shape {
+  .slider-controls {
+    gap: 15px;
+  }
+
+  .prev-btn,
+  .next-btn {
+    width: 45px;
+    height: 45px;
+    font-size: 16px;
+  }
+}
+
+/* Responsive - Mobile (1 card) */
+@media (max-width: 767px) {
+  .card {
+    width: calc(100% - 20px); /* 1 card on mobile */
+    margin: 0 10px;
+    padding: 25px 15px;
+  }
+
+  /* Remove divider on mobile */
+  .card::after {
     display: none;
   }
 
-  /* Each card takes half viewport */
-  .card {
-    width: calc(100% / 2) !important;
-    max-width: 25%;
+  .card img {
+    width: 80px;
+    height: 80px;
   }
+
+  .card h3 {
+    font-size: 18px;
+  }
+
+  .card p {
+    font-size: 14px;
+  }
+
+  .slider-controls {
+    gap: 10px;
+  }
+
+  .prev-btn,
+  .next-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+  }
+
+  .lines span {
+    width: 25px;
+  }
+
+  .lines span.active {
+    width: 30px;
+  }
+}
+
+/* ===== HOW SECTION — FIX FOR <=1000px ONLY ===== */
+@media (max-width: 1000px) {
+  /* ❌ Remove left orange shape */
+  .left-shape {
+    left: -20px;
+  }
+
   /* ✅ Add gray dots only at top area */
   .how::before {
     content: "";
@@ -1041,7 +1228,6 @@ a.button svg {
     position: relative;
     z-index: 2;
   }
-
 
   /* ✅ Change slider indicators to 4 lines */
   .lines {

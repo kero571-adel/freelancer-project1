@@ -1,3 +1,4 @@
+import React from "react";
 import NavBarRight from "./navBarRight";
 import "./App.css";
 import Nav from "./navBar";

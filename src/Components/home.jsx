@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useState } from "react";
+
 const slides = [
   {
     title: "Baseline SEO Report",
@@ -18,7 +19,7 @@ const slides = [
   },
   {
     title: "Transparent & Effective",
-    desc: "We strive to be transparent with you, so you’ll always know your money is being spent effectively",
+    desc: "We strive to be transparent with you, so you'll always know your money is being spent effectively",
     img: "/coin.gif",
   },
   {
@@ -27,17 +28,39 @@ const slides = [
     img: "/layer.gif",
   },
 ];
+
 export default function Home() {
-  const [isTablet, setIsTablet] = useState(window.innerWidth <= 1000);
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [active, setActive] = useState(0);
+
   useEffect(() => {
     const handleResize = () => {
-      setIsTablet(window.innerWidth <= 1000);
+      setScreenWidth(window.innerWidth);
     };
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  const isMobile = screenWidth < 768;
+  const isTablet = screenWidth >= 768 && screenWidth < 1024;
+  const isDesktop = screenWidth >= 1024;
+
+  const itemsPerView = isMobile ? 1 : isTablet ? 2 : 3;
+
+  // حساب عدد الشرائح الممكنة بناءً على عدد البطاقات المعروضة
+  const totalSlides = Math.max(0, slides.length - itemsPerView + 1);
+
+  // التأكد من أن الـ active لا يتجاوز الحد الأقصى
+  useEffect(() => {
+    if (active >= totalSlides && totalSlides > 0) {
+      setActive(totalSlides - 1);
+    }
+  }, [itemsPerView, totalSlides, active]);
+
+  // حساب نسبة التحريك لكل بطاقة
+  const cardWidthPercentage = 100 / itemsPerView;
+  const translateValue = active * cardWidthPercentage;
 
   return (
     <>
@@ -66,7 +89,7 @@ export default function Home() {
         {/* LEFT SIDE */}
         <div className="home-left">
           <a href="/" className="button">
-          WELCOME TO SALEPUSH
+            WELCOME TO SALEPUSH
           </a>
           <h1>The Experts in Optimizing Your Site!</h1>
           <p>
@@ -75,7 +98,8 @@ export default function Home() {
             marketing tactics
           </p>
           <button className="main-btn">
-            Free Seo Analysis <i className="fa-solid fa-arrow-right"></i>
+            FREE SEO ANALYSIS
+            <i className="fa-solid fa-arrow-right"></i>
           </button>
         </div>
 
@@ -94,12 +118,13 @@ export default function Home() {
           </div>
         </div>
       </div>
+
       <section className="how">
         <div className="left-shape"></div>
 
         <div className="content">
           <h5>HOW IT WORK</h5>
-          <h1>“ Because We’re the Best ”</h1>
+          <h1>" Because We're the Best "</h1>
           <p className="desc">
             You are looking for an seo company that can help you boost sales and
             increase visits, we are the top candidate for you.
@@ -111,12 +136,13 @@ export default function Home() {
               <div
                 className="slider-track"
                 style={{
-                  transform: `translateX(-${active * (isTablet ? 25 : 20)}%)`,
+                  transform: `translateX(-${translateValue}%)`,
+                  transition: "transform 0.5s ease-in-out",
                 }}
               >
                 {slides.map((slide, i) => (
                   <div className="card" key={i}>
-                    <img src={slide.img} alt="" />
+                    <img src={slide.img} alt={slide.title} />
                     <h3>{slide.title}</h3>
                     <p>{slide.desc}</p>
                   </div>
@@ -124,8 +150,9 @@ export default function Home() {
               </div>
             </div>
 
+            {/* نقاط التصفح */}
             <div className="lines">
-              {(isTablet ? [0, 1, 2, 3] : [0, 1, 2]).map((i) => (
+              {Array.from({ length: totalSlides }).map((_, i) => (
                 <span
                   key={i}
                   className={active === i ? "active" : ""}
