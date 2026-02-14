@@ -168,7 +168,6 @@ body {
   justify-content: center;
   align-items: center;
 }
-
 /* Main Girl Image */
 .main-image {
   width: 900px !important;
@@ -803,8 +802,8 @@ a.button svg {
     object-fit: contain;
   }
   .home .hero-right img {
-    width: 100px;
-    height: 100px;
+    width: 75px;
+    height: 75px;
   }
 
   .float-img {
@@ -896,8 +895,9 @@ a.button svg {
   }
 
   .main-image {
-    width: 160px !important;
-    height: 160px !important;
+    width: 400px !important;
+    height: 400px !important;
+    transform: translateX(14px);
   }
 
   .float-img {
@@ -917,11 +917,11 @@ a.button svg {
     left: 0%;
   }
   .chart {
-    bottom: -28%;
+    bottom: -48%;
     right: 5%;
   }
   .db {
-    bottom: -6%;
+    bottom: -56%;
     left: 2%;
   }
   .coin {
