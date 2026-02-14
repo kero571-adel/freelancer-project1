@@ -46,8 +46,7 @@ export default function NavBarLeft({ opennavBarLeft, setnavBarLeft }) {
           sx={{
             zIndex: "100000000",
             width: {
-              xs: opennavBarLeft == "0" ? "0" : opennavBarLeft,
-              sm: opennavBarLeft == "0" ? "0" : "300px",
+              xs: opennavBarLeft == "0" ? "0" : "300px",
               md: opennavBarLeft == "0" ? "0" : "350px",
               lg: opennavBarLeft == "0" ? "0" : "400px",
             },
